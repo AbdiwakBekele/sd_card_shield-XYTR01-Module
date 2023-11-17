@@ -1,10 +1,12 @@
 #include <SPI.h>
 #include <SD.h>
-
+//#include <SoftwareSerial.h>
+//SoftwareSerial mySerial(2, 3); //RX, TX 
 File dataFile;
 
 void setup() {
   Serial.begin(9600);
+//  mySerial.begin(9600); // For receiving data from pin 2 & pin 3
   Serial.println("Initializing SD..");
 
   pinMode(10, OUTPUT);
@@ -51,7 +53,7 @@ void loop() {
   
     if (Serial.available() > 0) {
       String data = Serial.readStringUntil('\n'); // Read until newline character
-  
+      Serial.println(data);
       // Find the positions of commas in the string
       int firstComma = data.indexOf(',');
   
@@ -79,7 +81,7 @@ void loop() {
       dataFile.flush();
 
       // Add a delay to avoid reading too fast and to allow time for other operations
-    delay(60000);
+    delay(1000);
     }
   
     
